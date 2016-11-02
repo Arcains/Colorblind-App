@@ -27,8 +27,8 @@ public class MainActivity extends Activity {
     Button button2;
     Button button3;
     ImageView imageView;
-    private static int RESULT_LOAD_IMG = 1;
     String imgDecodableString;
+    static final int RESULT_LOAD_IMG = 1;
     static final int CAM_REQUEST = 2;
     static int counter = 1;
 
@@ -93,6 +93,10 @@ public class MainActivity extends Activity {
                         green = green * 8 / 9;
                         blue = blue * 8 / 9;
                     }
+
+                    if (red < 0) red = 0;
+                    if (green <0) green = 0;
+                    if (blue <0) blue = 0;
 
                     if (red > 255) red = 255;
                     if (green > 255) green = 255;
@@ -173,6 +177,4 @@ public class MainActivity extends Activity {
         }
 
     }
-
-
 }
