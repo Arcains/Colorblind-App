@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:orientation="vertical"
+    tools:context="com.example.simon.usecamera.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/capture_image"
+        android:id="@+id/button"
+        android:textSize="12sp"
+        android:layout_weight="1"
+        android:onClick="captureButtonClicked" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/gallery_image"
+        android:id="@+id/button2"
+        android:textSize="12sp"
+        android:layout_weight="1"
+        android:onClick="galleryClicked"/>
+
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/apply_filter"
+        android:id="@+id/button3"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:onClick="applyColorFilter"/>
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/image_view"
+        android:rotation="90"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
+        android:layout_gravity="center_horizontal" />
+
+
+
+</LinearLayout>

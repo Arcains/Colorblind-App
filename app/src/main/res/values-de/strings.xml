@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ColorblindApp</string>
+    <string name="capture_image">Bild aufnehmen</string>
+    <string name="gallery_image">Bild aus Galerie</string>
+    <string name="apply_filter">Farbfilter anwenden</string>
+</resources>
