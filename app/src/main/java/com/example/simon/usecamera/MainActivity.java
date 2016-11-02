@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
         imageView = (ImageView) findViewById(R.id.image_view);
     }
 
-    public void galleryClicked(View view) {
+    public void galleryButtonClicked(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -61,52 +61,58 @@ public class MainActivity extends Activity {
 
     public void applyColorFilter(View v) {
 
-        BitmapDrawable  abm = (BitmapDrawable)imageView.getDrawable();
-        Bitmap bmp = abm.getBitmap();
+        if (imageView.getDrawable() != null) {
+
+            BitmapDrawable abm = (BitmapDrawable) imageView.getDrawable();
+            Bitmap bmp = abm.getBitmap();
 
 
-        // Create a bitmap of the same size
-        Bitmap newBmp = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.RGB_565);
-        // Create a canvas  for new bitmap
-        Canvas c = new Canvas(newBmp);
-        // Draw old bitmap on it
-        c.drawBitmap(bmp, 0, 0, new Paint());
+            // Create a bitmap of the same size
+            Bitmap newBmp = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.RGB_565);
+            // Create a canvas  for new bitmap
+            Canvas c = new Canvas(newBmp);
+            // Draw old bitmap on it
+            c.drawBitmap(bmp, 0, 0, new Paint());
 
-        for(int i=0; i<newBmp.getWidth(); i++){
-            for(int j=0; j<newBmp.getHeight(); j++){
-                int color = newBmp.getPixel(i, j);
+            for (int i = 0; i < newBmp.getWidth(); i++) {
+                for (int j = 0; j < newBmp.getHeight(); j++) {
+                    int color = newBmp.getPixel(i, j);
 
 
-                int red = (color << 8 >>> 24);
-                int green = (color << 16 >>> 24);
-                int blue = (color << 24 >>> 24);
+                    int red = (color << 8 >>> 24);
+                    int green = (color << 16 >>> 24);
+                    int blue = (color << 24 >>> 24);
 
-                if (red <= green) {
-                    red = red*9/8;
-                    green = green*9/8;
-                    blue = blue*9/8;
+                    if (red <= green) {
+                        red = red * 9 / 8;
+                        green = green * 9 / 8;
+                        blue = blue * 9 / 8;
 
-                } else {
-                    red = red*8/9;
-                    green = green*8/9;
-                    blue = blue*8/9;
+                    } else {
+                        red = red * 8 / 9;
+                        green = green * 8 / 9;
+                        blue = blue * 8 / 9;
+                    }
+
+                    if (red > 255) red = 255;
+                    if (green > 255) green = 255;
+                    if (blue > 255) blue = 255;
+
+                    color = red << 16 | green << 8 | blue;
+
+                    newBmp.setPixel(i, j, color);
+
                 }
-
-                if (red > 255) red = 255;
-                if (green > 255) green = 255;
-                if (blue > 255) blue = 255;
-
-                color = red << 16 | green << 8 | blue;
-
-                newBmp.setPixel(i, j, color);
-
             }
+
+            imageView.setImageBitmap(newBmp);
+        } else {
+            Toast.makeText(this, "select a picture first", Toast.LENGTH_LONG)
+                    .show();
         }
 
-        imageView.setImageBitmap(newBmp);
 
     }
-
 
 
     private File getFile() {
@@ -114,14 +120,13 @@ public class MainActivity extends Activity {
 
         counter++;
 
-        if(!folder.exists()) {
+        if (!folder.exists()) {
             folder.mkdir();
         }
 
         File image_file = new File(folder, "cam_image".concat(Integer.toString(counter)).concat(".jpg"));
         return image_file;
     }
-
 
 
     @Override
@@ -132,9 +137,7 @@ public class MainActivity extends Activity {
             String path = "sdcard/camera_app/cam_image".concat(Integer.toString(counter)).concat(".jpg");
             imageView.setImageDrawable(Drawable.createFromPath(path));
 
-        }
-
-        else {
+        } else {
 
             try {
                 // When an Image is picked
@@ -170,7 +173,6 @@ public class MainActivity extends Activity {
         }
 
     }
-
 
 
 }
