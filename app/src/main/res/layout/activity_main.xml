@@ -32,7 +32,7 @@
         android:id="@+id/button2"
         android:textSize="12sp"
         android:layout_weight="1"
-        android:onClick="galleryClicked"/>
+        android:onClick="galleryButtonClicked"/>
 
 
     <Button
