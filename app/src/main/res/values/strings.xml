@@ -3,4 +3,6 @@
     <string name="capture_image">Capture Image</string>
     <string name="gallery_image">Image from Gallery</string>
     <string name="apply_filter">Apply Color Filter</string>
+    <string name="picture_missing">Select a picture first</string>
+    <string name="general_error">An Error occurred</string>
 </resources>

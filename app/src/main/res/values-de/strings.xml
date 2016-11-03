@@ -4,4 +4,6 @@
     <string name="capture_image">Bild aufnehmen</string>
     <string name="gallery_image">Bild aus Galerie</string>
     <string name="apply_filter">Farbfilter anwenden</string>
+    <string name="picture_missing">Bitte zuerst ein Bild auswählen</string>
+    <string name="general_error">Ein Fehler ist aufgetreten</string>
 </resources>

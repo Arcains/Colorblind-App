@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
             bitmap = FilterUtils.modifyPixels(bitmap);
             imageView.setImageBitmap(bitmap);
         } else {
-            Toast.makeText(this, "select a picture first", Toast.LENGTH_LONG)
+            Toast.makeText(this, getString(R.string.picture_missing), Toast.LENGTH_LONG)
                     .show();
         }
 
@@ -118,11 +118,11 @@ public class MainActivity extends Activity {
                             .decodeFile(imgDecodeableString));
 
                 } else {
-                    Toast.makeText(this, "You haven't picked an Image",
+                    Toast.makeText(this, getString(R.string.picture_missing),
                             Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+                Toast.makeText(this, getString(R.string.general_error), Toast.LENGTH_LONG)
                         .show();
             }
         }
