@@ -5,14 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +22,12 @@ public class MainActivity extends Activity {
     Button button2;
     Button button3;
     ImageView imageView;
-    String imgDecodableString;
+    String imgDecodeableString;
     static final int RESULT_LOAD_IMG = 1;
     static final int CAM_REQUEST = 2;
     static int counter = 1;
+    Bitmap bitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,59 +59,13 @@ public class MainActivity extends Activity {
     public void applyColorFilter(View v) {
 
         if (imageView.getDrawable() != null) {
-
-            BitmapDrawable abm = (BitmapDrawable) imageView.getDrawable();
-            Bitmap bmp = abm.getBitmap();
-
-
-            // Create a bitmap of the same size
-            Bitmap newBmp = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.RGB_565);
-            // Create a canvas  for new bitmap
-            Canvas c = new Canvas(newBmp);
-            // Draw old bitmap on it
-            c.drawBitmap(bmp, 0, 0, new Paint());
-
-            for (int i = 0; i < newBmp.getWidth(); i++) {
-                for (int j = 0; j < newBmp.getHeight(); j++) {
-                    int color = newBmp.getPixel(i, j);
-
-
-                    int red = (color << 8 >>> 24);
-                    int green = (color << 16 >>> 24);
-                    int blue = (color << 24 >>> 24);
-
-                    if (red <= green) {
-                        red = red * 9 / 8;
-                        green = green * 9 / 8;
-                        blue = blue * 9 / 8;
-
-                    } else {
-                        red = red * 8 / 9;
-                        green = green * 8 / 9;
-                        blue = blue * 8 / 9;
-                    }
-
-                    if (red < 0) red = 0;
-                    if (green <0) green = 0;
-                    if (blue <0) blue = 0;
-
-                    if (red > 255) red = 255;
-                    if (green > 255) green = 255;
-                    if (blue > 255) blue = 255;
-
-                    color = red << 16 | green << 8 | blue;
-
-                    newBmp.setPixel(i, j, color);
-
-                }
-            }
-
-            imageView.setImageBitmap(newBmp);
+            bitmap = FilterUtils.imageToBitmap(imageView);
+            bitmap = FilterUtils.modifyPixels(bitmap);
+            imageView.setImageBitmap(bitmap);
         } else {
             Toast.makeText(this, "select a picture first", Toast.LENGTH_LONG)
                     .show();
         }
-
 
     }
 
@@ -159,15 +110,15 @@ public class MainActivity extends Activity {
                     cursor.moveToFirst();
 
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    imgDecodableString = cursor.getString(columnIndex);
+                    imgDecodeableString = cursor.getString(columnIndex);
                     cursor.close();
                     ImageView imgView = (ImageView) findViewById(R.id.image_view);
                     // Set the Image in ImageView after decoding the String
                     imgView.setImageBitmap(BitmapFactory
-                            .decodeFile(imgDecodableString));
+                            .decodeFile(imgDecodeableString));
 
                 } else {
-                    Toast.makeText(this, "You haven't picked Image",
+                    Toast.makeText(this, "You haven't picked an Image",
                             Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
